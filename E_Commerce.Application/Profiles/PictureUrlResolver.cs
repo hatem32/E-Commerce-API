@@ -14,7 +14,7 @@ namespace E_Commerce.Application.Profiles
     {
         private readonly UrlSettings _urlSettings = options.Value;
 
-        public string? Resolve(Product source, ProductDto destination,
+        public string Resolve(Product source, ProductDto destination,
                                string destMember, ResolutionContext context)
         {
             

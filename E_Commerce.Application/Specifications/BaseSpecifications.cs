@@ -11,11 +11,11 @@ namespace E_Commerce.Application.Specifications
 {
     internal abstract class BaseSpecifications<TEntity, TKey> : ISpecifications<TEntity, TKey> where TEntity : BaseEntity<TKey>
     {
-        public Expression<Func<TEntity, bool>> Criteria { get; private set; }
         protected BaseSpecifications(Expression<Func<TEntity, bool>> criteria)
         {
             Criteria = criteria;
         }
+        public Expression<Func<TEntity, bool>> Criteria { get; private set; }
 
         public ICollection<Expression<Func<TEntity, object>>> IncludeExpressions { get; } = [];
 
