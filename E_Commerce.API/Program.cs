@@ -1,6 +1,7 @@
 
 using E_Commerce.API.Extensions;
 using E_Commerce.Application;
+using E_Commerce.Application.Common;
 using E_Commerce.Application.Profiles;
 using E_Commerce.Domain.Contracts;
 using E_Commerce.Infrastructure;
@@ -25,6 +26,7 @@ namespace E_Commerce.API
             builder.Services.AddApplicationServices();
             builder.Services.Configure<UrlSettings>(builder.Configuration.GetSection("UrlSettings"));
             builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("Jwt"));
+            builder.Services.Configure<PaymentGatewaySettings>(builder.Configuration.GetSection("Stripe"));
 
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
