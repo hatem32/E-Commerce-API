@@ -1,0 +1,21 @@
+﻿@model RoleViewModel
+
+
+<form method="post" asp-action="Create">
+    <div class="input-group mb-2">
+        <input asp-for="@Model.Name" class="form-control me-2 rounded-2" placeholder="Enter the role name" />
+
+        <div class="input-group-append">
+            <button type="submit" class="btn btn-success"> Create </button>
+        </div>
+    </div>
+
+
+    <span asp-validation-for="@Model.Name" class="text-danger"></span>
+
+</form>
+
+
+@section Secripts {
+    <partial name="_ValidationScriptsPartial" />
+}

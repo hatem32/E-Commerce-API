@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace E_Commerce.Infrastructure.Identity.Data
 {
-    internal class StoreIdentityDbContext(DbContextOptions<StoreIdentityDbContext> options) : IdentityDbContext<ApplicationUser>(options)
+    public class StoreIdentityDbContext(DbContextOptions<StoreIdentityDbContext> options) : IdentityDbContext<ApplicationUser>(options)
     {
         protected override void OnModelCreating(ModelBuilder builder)
         {
