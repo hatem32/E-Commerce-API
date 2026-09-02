@@ -1,0 +1,289 @@
+﻿/* ==========================================================================
+   Custom Admin Theme - E-Commerce Admin Dashboard
+   ========================================================================== */
+
+:root {
+    --brand-primary: #4f46e5;
+    --brand-primary-dark: #3730a3;
+    --brand-accent: #06b6d4;
+    --sidebar-bg: #111827;
+    --sidebar-bg-active: #1f2937;
+    --sidebar-text: #9ca3af;
+    --sidebar-text-active: #ffffff;
+    --page-bg: #f3f4f6;
+    --card-radius: 0.9rem;
+}
+
+body {
+    background-color: var(--page-bg);
+    font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+}
+
+/* Topbar */
+.sb-topnav.navbar {
+    background: linear-gradient(90deg, var(--brand-primary-dark), var(--brand-primary)) !important;
+    box-shadow: 0 2px 10px rgba(79, 70, 229, 0.25);
+}
+
+.sb-topnav .navbar-brand {
+    font-weight: 700;
+    letter-spacing: 0.3px;
+}
+
+    .sb-topnav .navbar-brand .fa-bag-shopping,
+    .sb-topnav .navbar-brand i {
+        margin-right: 0.4rem;
+    }
+
+/* Sidebar */
+#layoutSidenav_nav .sb-sidenav {
+    background-color: var(--sidebar-bg) !important;
+}
+
+.sb-sidenav-dark .sb-sidenav-menu-heading {
+    color: #6b7280;
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    font-weight: 700;
+    padding-top: 1.25rem;
+}
+
+.sb-sidenav-dark .nav-link {
+    color: var(--sidebar-text);
+    border-radius: 0.5rem;
+    margin: 0.1rem 0.6rem;
+    padding: 0.55rem 0.9rem;
+    transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+    .sb-sidenav-dark .nav-link .sb-nav-link-icon {
+        color: var(--sidebar-text);
+        width: 1.4rem;
+    }
+
+    .sb-sidenav-dark .nav-link:hover {
+        color: var(--sidebar-text-active);
+        background-color: rgba(255, 255, 255, 0.06);
+    }
+
+    .sb-sidenav-dark .nav-link.active {
+        color: var(--sidebar-text-active);
+        background-color: var(--brand-primary);
+    }
+
+        .sb-sidenav-dark .nav-link.active .sb-nav-link-icon {
+            color: #fff;
+        }
+
+.sb-sidenav-footer {
+    background-color: var(--sidebar-bg-active) !important;
+}
+
+/* Page container */
+#layoutSidenav_content .container,
+#layoutSidenav_content .container-fluid {
+    padding-top: 1.5rem;
+}
+
+.page-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.25rem;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+    .page-heading h1 {
+        font-size: 1.6rem;
+        font-weight: 700;
+        margin: 0;
+        color: #111827;
+    }
+
+/* Cards */
+.card {
+    border: none;
+    border-radius: var(--card-radius);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+/* Dashboard stat cards */
+.stat-card {
+    border-radius: var(--card-radius);
+    padding: 1.25rem 1.4rem;
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+    min-height: 110px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+}
+
+    .stat-card .stat-icon {
+        position: absolute;
+        right: 1rem;
+        top: 1rem;
+        font-size: 2.1rem;
+        opacity: 0.35;
+    }
+
+    .stat-card .stat-value {
+        font-size: 2rem;
+        font-weight: 700;
+        line-height: 1.1;
+    }
+
+    .stat-card .stat-label {
+        font-size: 0.85rem;
+        opacity: 0.9;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+    }
+
+    .stat-card.bg-users {
+        background: linear-gradient(135deg, #4f46e5, #6366f1);
+    }
+
+    .stat-card.bg-products {
+        background: linear-gradient(135deg, #06b6d4, #0891b2);
+    }
+
+    .stat-card.bg-brands {
+        background: linear-gradient(135deg, #f59e0b, #d97706);
+    }
+
+    .stat-card.bg-types {
+        background: linear-gradient(135deg, #10b981, #059669);
+    }
+
+    .stat-card.bg-orders {
+        background: linear-gradient(135deg, #ec4899, #db2777);
+    }
+
+/* Tables */
+.table-card {
+    background: #fff;
+    border-radius: var(--card-radius);
+    padding: 1.25rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+.table thead th {
+    text-transform: uppercase;
+    font-size: 0.72rem;
+    letter-spacing: 0.05em;
+    color: #6b7280;
+    border-bottom-width: 1px;
+    white-space: nowrap;
+}
+
+.table td {
+    vertical-align: middle;
+}
+
+.product-thumb {
+    width: 46px;
+    height: 46px;
+    object-fit: cover;
+    border-radius: 0.5rem;
+    background: #f3f4f6;
+    border: 1px solid #e5e7eb;
+}
+
+.btn-primary {
+    background-color: var(--brand-primary);
+    border-color: var(--brand-primary);
+}
+
+    .btn-primary:hover {
+        background-color: var(--brand-primary-dark);
+        border-color: var(--brand-primary-dark);
+    }
+
+.badge-soft {
+    background-color: #eef2ff;
+    color: var(--brand-primary-dark);
+    font-weight: 600;
+    padding: 0.35em 0.65em;
+    border-radius: 0.5rem;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: #6b7280;
+}
+
+    .empty-state i {
+        font-size: 2.5rem;
+        margin-bottom: 0.75rem;
+        color: #d1d5db;
+    }
+
+/* Image upload box (Products Create/Edit) */
+.image-upload-box {
+    border: 2px dashed #d1d5db;
+    border-radius: var(--card-radius);
+    background: #fafafa;
+    min-height: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    overflow: hidden;
+    transition: border-color 0.15s ease, background-color 0.15s ease;
+    padding: 0.75rem;
+}
+
+    .image-upload-box:hover {
+        border-color: var(--brand-primary);
+        background: #f5f5ff;
+    }
+
+    .image-upload-box.dragging {
+        border-color: var(--brand-primary);
+        background: #eef2ff;
+    }
+
+    .image-upload-box img {
+        max-height: 220px;
+        max-width: 100%;
+        border-radius: 0.6rem;
+        object-fit: contain;
+    }
+
+    .image-upload-box .upload-placeholder {
+        text-align: center;
+        color: #6b7280;
+    }
+
+        .image-upload-box .upload-placeholder i {
+            font-size: 2.2rem;
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #9ca3af;
+        }
+
+/* Order status badges */
+.status-badge {
+    display: inline-block;
+    padding: 0.3em 0.75em;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    font-size: 0.8rem;
+}
+
+    .status-badge.status-pending {
+        background-color: #fef3c7;
+        color: #92400e;
+    }
+
+    .status-badge.status-paymentreceived {
+        background-color: #d1fae5;
+        color: #065f46;
+    }
+
+    .status-badge.status-paymentfailed {
+        background-color: #fee2e2;
+        color: #991b1b;
+    }

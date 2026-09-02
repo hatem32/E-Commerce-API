@@ -1,0 +1,64 @@
+﻿@model IEnumerable<E_Commerce.Domain.Entities.Products.ProductType>
+@{
+    ViewData["Title"] = "Product Types";
+}
+
+<div class="page-heading">
+    <h1>Product Types</h1>
+</div>
+
+@if (TempData["Error"] is not null)
+{
+    <div class="alert alert-danger">@TempData["Error"]</div>
+}
+
+<div class="row g-3">
+    <div class="col-lg-4">
+        <div class="table-card">
+            <h5 class="mb-3"><i class="fas fa-plus me-2 text-muted"></i>Add New Type</h5>
+            <form asp-action="Create" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-2"></div>
+                <div class="mb-3">
+                    <label class="form-label">Type Name</label>
+                    <input name="Name" class="form-control" placeholder="e.g. Electronics" />
+                </div>
+                <button type="submit" class="btn btn-primary w-100"><i class="fas fa-check me-1"></i> Add Type</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="col-lg-8">
+        <div class="table-card">
+            @if (Model.Any())
+            {
+                <table class="table table-hover align-middle">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var type in Model)
+                        {
+                            <tr>
+                                <td>@type.Name</td>
+                                <td>
+                                    <a class="btn btn-sm btn-outline-warning" asp-action="Edit" asp-route-id="@type.Id"><i class="fas fa-pen"></i></a>
+                                    <a class="btn btn-sm btn-outline-danger" asp-action="Delete" asp-route-id="@type.Id" onclick="return confirm('Delete this type?');"><i class="fas fa-trash"></i></a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <div class="empty-state">
+                    <i class="fas fa-copyright"></i>
+                    <p class="mb-0">No types yet.</p>
+                </div>
+            }
+        </div>
+    </div>
+</div>

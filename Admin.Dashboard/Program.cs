@@ -1,3 +1,6 @@
+using AdminDashboard.Options;
+using AdminDashboard.Services;
+using E_Commerce.Application.Profiles;
 using E_Commerce.Infrastructure.Data;
 using E_Commerce.Infrastructure.Identity.Data;
 using E_Commerce.Infrastructure.Identity.Entities;
@@ -30,6 +33,15 @@ namespace Admin.Dashboard
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
                             .AddEntityFrameworkStores<StoreIdentityDbContext>()
                             .AddDefaultTokenProviders();
+
+            // Same UrlSettings used by the API, so the dashboard can build full image URLs
+            // (e.g. https://localhost:7227/Files/images/products/x.jpeg) from the relative
+            // PictureUrl path stored in the database.
+            builder.Services.Configure<UrlSettings>(builder.Configuration.GetSection("UrlSettings"));
+
+            // Where uploaded product images get physically saved - the API's Files/images/products folder.
+            builder.Services.Configure<ProductImagesSettings>(builder.Configuration.GetSection("ProductImages"));
+            builder.Services.AddScoped<ProductImageStorageService>();
 
 
 
