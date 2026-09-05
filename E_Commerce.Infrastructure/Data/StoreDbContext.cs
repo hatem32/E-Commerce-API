@@ -1,5 +1,6 @@
 ﻿using E_Commerce.Domain.Entities.Orders;
 using E_Commerce.Domain.Entities.Products;
+using E_Commerce.Domain.Entities.Wishlists;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -21,8 +22,9 @@ namespace E_Commerce.Infrastructure.Data
         public DbSet<ProductType> ProductTypes {  get; set; }
         public DbSet<Order> Orders {  get; set; }
         public DbSet<DeliveryMethod> DeliveryMethods {  get; set; }
+        public DbSet<WishlistItem> WishlistItems { get; set; }
 
-        
+
 
     }
 }
