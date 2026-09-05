@@ -23,5 +23,21 @@ namespace E_Commerce.Infrastructure.Repositories
 
         public Task SetAsync(string cacheKey, string cacheValue, TimeSpan timeToLive, CancellationToken cancellationToken = default)
             => _database.StringSetAsync(cacheKey, cacheValue, timeToLive);
+
+        public async Task RemoveByPrefixAsync(string prefix, CancellationToken cancellationToken = default)
+        {
+            var endpoints = _database.Multiplexer.GetEndPoints();
+            if (endpoints.Length == 0)
+                return;
+
+            var server = _database.Multiplexer.GetServer(endpoints[0]);
+
+            // Cache keys look like "/api/products?pageIndex=1&pageSize=8&..." - match every
+            // variation (different paging/sorting/filters) that starts with this path.
+            await foreach (var key in server.KeysAsync(pattern: $"{prefix}*"))
+            {
+                await _database.KeyDeleteAsync(key);
+            }
+        }
     }
 }

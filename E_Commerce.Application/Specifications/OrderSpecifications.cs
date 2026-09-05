@@ -16,7 +16,22 @@ namespace E_Commerce.Application.Specifications
             AddOrderByDescending(o => o.OrderDate);
         }
 
+        // Admin - every order, newest first.
+        public OrderSpecifications() : base(o => true)
+        {
+            AddInclude(o => o.DeliveryMethod);
+            AddInclude(o => o.Items);
+            AddOrderByDescending(o => o.OrderDate);
+        }
+
         public OrderSpecifications(Guid id, string email) : base(o => o.Id == id && o.BuyerEmail == email)
+        {
+            AddInclude(o => o.DeliveryMethod);
+            AddInclude(o => o.Items);
+        }
+
+        // Admin lookup - no buyer email restriction.
+        public OrderSpecifications(Guid id) : base(o => o.Id == id)
         {
             AddInclude(o => o.DeliveryMethod);
             AddInclude(o => o.Items);

@@ -105,6 +105,7 @@ namespace E_Commerce.Application.Services
                 return;
 
             order.Status = OrderStatus.PaymentFailed;
+            orderRepo.Update(order);
 
             await _unitOfWork.SaveChangesAsync();
         }
@@ -118,6 +119,7 @@ namespace E_Commerce.Application.Services
             if (order == null)
                 return;
             order.Status = OrderStatus.PaymentReceived;
+            orderRepo.Update(order);
 
             await _unitOfWork.SaveChangesAsync();
         }

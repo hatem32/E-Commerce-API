@@ -14,5 +14,20 @@ namespace E_Commerce.Application.Contracts
         Task<Result<IReadOnlyList<BrandDto>>> GetAllBrandsAsync(CancellationToken ct = default);
         Task<Result<IReadOnlyList<TypeDto>>> GetAllTypesAsync(CancellationToken ct = default);
         Task<Result<ProductDto>> GetProductByIdAsync(int id, CancellationToken ct = default);
+
+        // Admin - Products
+        Task<Result<ProductDto>> CreateProductAsync(ProductFormDto dto, CancellationToken ct = default);
+        Task<Result<ProductDto>> UpdateProductAsync(int id, ProductFormDto dto, CancellationToken ct = default);
+        Task<Result<bool>> DeleteProductAsync(int id, CancellationToken ct = default);
+
+        // Admin - Brands
+        Task<Result<BrandDto>> CreateBrandAsync(NameFormDto dto, CancellationToken ct = default);
+        Task<Result<BrandDto>> UpdateBrandAsync(int id, NameFormDto dto, CancellationToken ct = default);
+        Task<Result<bool>> DeleteBrandAsync(int id, CancellationToken ct = default);
+
+        // Admin - Types
+        Task<Result<TypeDto>> CreateTypeAsync(NameFormDto dto, CancellationToken ct = default);
+        Task<Result<TypeDto>> UpdateTypeAsync(int id, NameFormDto dto, CancellationToken ct = default);
+        Task<Result<bool>> DeleteTypeAsync(int id, CancellationToken ct = default);
     }
 }

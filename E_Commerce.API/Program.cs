@@ -1,4 +1,3 @@
-
 using E_Commerce.API.Extensions;
 using E_Commerce.Application;
 using E_Commerce.Application.Common;
@@ -28,14 +27,27 @@ namespace E_Commerce.API
             builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("Jwt"));
             builder.Services.Configure<PaymentGatewaySettings>(builder.Configuration.GetSection("Stripe"));
 
+            // Allows the Angular storefront (a different origin) to call this API.
+            const string AngularClientPolicy = "AngularClient";
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy(AngularClientPolicy, policy =>
+                {
+                    policy.WithOrigins("http://localhost:4200")
+                          .AllowAnyHeader()
+                          .AllowAnyMethod()
+                          .AllowCredentials();
+                });
+            });
+
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
-     
+
 
             var app = builder.Build();
 
-           await app.SeedDatabaseAsync();
+            await app.SeedDatabaseAsync();
 
 
             // Configure the HTTP request pipeline.
@@ -51,6 +63,11 @@ namespace E_Commerce.API
             });
 
             app.UseHttpsRedirection();
+
+            app.UseCors(AngularClientPolicy);
+
+            
+            app.UseAuthentication();
 
             app.UseAuthorization();
 

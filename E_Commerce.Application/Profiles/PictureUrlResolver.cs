@@ -17,10 +17,17 @@ namespace E_Commerce.Application.Profiles
         public string Resolve(Product source, ProductDto destination,
                                string destMember, ResolutionContext context)
         {
-            
+            var pictureUrl = source.PictureUrl;
+
+            if (string.IsNullOrEmpty(pictureUrl))
+                return string.Empty;
+
+            if (pictureUrl.StartsWith("http://", StringComparison.OrdinalIgnoreCase) ||
+                pictureUrl.StartsWith("https://", StringComparison.OrdinalIgnoreCase))
+                return pictureUrl;
 
             var baseUrl = _urlSettings.BaseUrl.TrimEnd('/');
-            var path = source.PictureUrl.TrimStart('/');
+            var path = pictureUrl.TrimStart('/');
             return $"{baseUrl}/Files/{path}";
         }
     }

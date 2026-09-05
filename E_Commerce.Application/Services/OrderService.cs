@@ -103,5 +103,39 @@ namespace E_Commerce.Application.Services
                 return Result<OrderToReturnDto>.Fail(Error.NotFound("Order Not Found", $"Order With Id {id} Is Not Found"));
             return mapper.Map<OrderToReturnDto>(order);
         }
+
+        // ---------------- Admin ----------------
+
+        public async Task<Result<IReadOnlyList<OrderToReturnDto>>> GetAllOrdersForAdminAsync(CancellationToken cancellationToken = default)
+        {
+            var orders = await unitOfWork.GetRepository<Order, Guid>().GetAllAsync(new OrderSpecifications(), cancellationToken);
+            return Result<IReadOnlyList<OrderToReturnDto>>.Ok(mapper.Map<IReadOnlyList<OrderToReturnDto>>(orders));
+        }
+
+        public async Task<Result<OrderToReturnDto>> UpdateOrderStatusAsync(Guid id, OrderStatus status, CancellationToken cancellationToken = default)
+        {
+            var orderRepo = unitOfWork.GetRepository<Order, Guid>();
+
+            // Plain FindAsync-based lookup (not a specification), so the returned entity IS
+            // tracked by EF - unlike specification-based reads which use AsNoTracking and
+            // silently drop any change made without an explicit Update() call.
+            var order = await orderRepo.GetByIdAsync(id, cancellationToken);
+
+            if (order is null)
+                return Result<OrderToReturnDto>.Fail(Error.NotFound("Order Not Found", $"Order With Id {id} Is Not Found"));
+
+            order.Status = status;
+            await unitOfWork.SaveChangesAsync(cancellationToken);
+
+            return await GetOrderForAdminByIdAsync(id, cancellationToken);
+        }
+
+        private async Task<Result<OrderToReturnDto>> GetOrderForAdminByIdAsync(Guid id, CancellationToken cancellationToken)
+        {
+            var order = await unitOfWork.GetRepository<Order, Guid>().GetByIdAsync(new OrderSpecifications(id), cancellationToken);
+            if (order == null)
+                return Result<OrderToReturnDto>.Fail(Error.NotFound("Order Not Found", $"Order With Id {id} Is Not Found"));
+            return mapper.Map<OrderToReturnDto>(order);
+        }
     }
 }

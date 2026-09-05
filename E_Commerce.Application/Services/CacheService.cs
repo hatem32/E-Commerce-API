@@ -28,5 +28,8 @@ namespace E_Commerce.Application.Services
             });
             return _cacheRepository.SetAsync(cacheKey, json, timeToLive, cancellationToken);
         }
+
+        public Task RemoveByPrefixAsync(string prefix, CancellationToken cancellationToken = default)
+            => _cacheRepository.RemoveByPrefixAsync(prefix, cancellationToken);
     }
 }

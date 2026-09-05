@@ -10,5 +10,6 @@ namespace E_Commerce.Domain.Contracts
     {
         Task<string?> GetAsync(string cacheKey, CancellationToken cancellationToken = default);
         Task SetAsync(string cacheKey, string cacheValue, TimeSpan timeToLive, CancellationToken cancellationToken = default);
+        Task RemoveByPrefixAsync(string prefix, CancellationToken cancellationToken = default);
     }
 }
