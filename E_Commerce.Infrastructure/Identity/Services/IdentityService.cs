@@ -31,7 +31,10 @@ namespace E_Commerce.Infrastructure.Identity.Services
             }
             else
             {
-                return new IdentityUserResult(user.Id, user.Email, user.UserName, user.DisplayName);
+                return new IdentityUserResult(user.Id, user.Email, user.UserName, user.DisplayName)
+                {
+                    EmailConfirmed = user.EmailConfirmed
+                };
 
             }
         }
@@ -54,7 +57,9 @@ namespace E_Commerce.Infrastructure.Identity.Services
                 Email = registerDto.Email,
                 UserName = registerDto.UserName,
                 PhoneNumber = registerDto.PhoneNumber,
-                DisplayName = registerDto.DisplayName
+                DisplayName = registerDto.DisplayName,
+                // Account exists but can't log in until the OTP is verified.
+                EmailConfirmed = false
             };
 
             var result = await _userManager.CreateAsync(user, registerDto.Password);
@@ -64,7 +69,10 @@ namespace E_Commerce.Infrastructure.Identity.Services
                 return Result<IdentityUserResult>.Fail(errors);
             }
 
-            return Result<IdentityUserResult>.Ok(new IdentityUserResult(user.Id, user.Email, user.UserName, user.DisplayName));
+            return Result<IdentityUserResult>.Ok(new IdentityUserResult(user.Id, user.Email, user.UserName, user.DisplayName)
+            {
+                EmailConfirmed = user.EmailConfirmed
+            });
         }
 
         public async Task<Result<IReadOnlyList<string>>> GetRolesAsync(string email, CancellationToken cancellationToken = default)
@@ -131,6 +139,24 @@ namespace E_Commerce.Infrastructure.Identity.Services
 
         public async Task<Result<bool>> EmailExistsAsync(string email, CancellationToken cancellationToken = default)
                 => await _userManager.FindByEmailAsync(email) is not null;
+
+        public async Task<Result<bool>> ConfirmEmailAsync(string email, CancellationToken cancellationToken = default)
+        {
+            var user = await _userManager.FindByEmailAsync(email);
+            if (user is null)
+                return Result<bool>.Fail(Error.NotFound("User Not Found"));
+
+            if (user.EmailConfirmed)
+                return true;
+
+            user.EmailConfirmed = true;
+            var result = await _userManager.UpdateAsync(user);
+
+            if (!result.Succeeded)
+                return Result<bool>.Fail(Error.Failure("Failure", string.Join("; ", result.Errors.Select(e => e.Description))));
+
+            return true;
+        }
 
     }
 }

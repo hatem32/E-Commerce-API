@@ -26,7 +26,7 @@ namespace E_Commerce.API
             builder.Services.Configure<UrlSettings>(builder.Configuration.GetSection("UrlSettings"));
             builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("Jwt"));
             builder.Services.Configure<PaymentGatewaySettings>(builder.Configuration.GetSection("Stripe"));
-
+            builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettings"));
             // Allows the Angular storefront (a different origin) to call this API.
             const string AngularClientPolicy = "AngularClient";
             builder.Services.AddCors(options =>

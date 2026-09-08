@@ -22,6 +22,8 @@ namespace E_Commerce.Application
             services.AddScoped<IAuthenticationService, AuthenticationService>();
             services.AddScoped<IPaymentService, PaymentService>();
             services.AddScoped<IWishlistService, WishlistService>();
+            services.AddScoped<IEmailService, EmailService>();
+            services.AddScoped<IOtpService, OtpService>();
 
             return services;
         }

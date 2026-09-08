@@ -25,10 +25,26 @@ namespace E_Commerce.API.Controllers
 
 
         [HttpPost("register")]
+        [ProducesResponseType(typeof(RegisterResultDto), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<RegisterResultDto>> Register(RegisterDto registerDto, CancellationToken cancellationToken)
+       => ToActionResult(await _authenticationService.RegisterAsync(registerDto, cancellationToken));
+
+
+
+        [HttpPost("verify-otp")]
         [ProducesResponseType(typeof(UserDto), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<UserDto>> Register(RegisterDto registerDto, CancellationToken cancellationToken)
-       => ToActionResult(await _authenticationService.RegisterAsync(registerDto, cancellationToken));
+        public async Task<ActionResult<UserDto>> VerifyOtp(VerifyOtpDto dto, CancellationToken cancellationToken)
+        => ToActionResult(await _authenticationService.VerifyOtpAsync(dto, cancellationToken));
+
+
+
+        [HttpPost("resend-otp")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<bool>> ResendOtp(ResendOtpDto dto, CancellationToken cancellationToken)
+        => ToActionResult(await _authenticationService.ResendOtpAsync(dto.Email, cancellationToken));
 
 
 
